@@ -1,0 +1,8 @@
+{
+  "@@locale": "es",
+  "appTitle": "WeatherApp",
+  "eventsTitle": "Eventos climáticos",
+  "forecastTitle": "Clima últimos 5 días",
+  "favoritesTitle": "Favoritos",
+  "mapTitle": "Mapa"
+}

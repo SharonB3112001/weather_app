@@ -1,0 +1,16 @@
+# flavors:
+#   dev:
+#     app:
+#       name: "Clima DEV"
+#       package_name: "com.weather.clima.dev"
+#       icon: "assets/icons/dev.png"
+#     android:
+#       applicationId: "com.weather.clima.dev"
+
+#   prod:
+#     app:
+#       name: "Clima"
+#       package_name: "com.weather.clima"
+#       icon: "assets/icons/prod.png"
+#     android:
+#       applicationId: "com.weather.clima"
