@@ -1,8 +1,8 @@
+import '../repositories/event_repository.dart';
 import '../../data/models/event_model.dart';
-import '../../data/repositories/event_repository_impl.dart';
 
 class GetEventsUseCase {
-  final EventRepositoryImpl repository;
+  final EventRepository repository;
 
   GetEventsUseCase(this.repository);
 

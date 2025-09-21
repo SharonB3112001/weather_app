@@ -11,7 +11,7 @@ void main() {
 
     final forecast = ForecastModel.fromJson(json);
 
-    expect(forecast.temp, 22);
+    expect(forecast.temperature, 22);
     expect(forecast.description, "Soleado");
   });
 }

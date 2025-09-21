@@ -3,15 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:weather_app/features/events/data/models/event_model.dart';
 import 'package:weather_app/features/events/presentation/pages/event_page.dart';
-import 'package:weather_app/features/events/providers/event_providers.dart';
+import 'package:weather_app/features/events/providers/event_provider.dart'; // 👈 corregido
 
 void main() {
   testWidgets('EventPage shows events list', (WidgetTester tester) async {
     final events = [
       EventModel(
+        id: "1", // 👈 agregado
         type: "Granizo",
         description: "Evento fuerte",
-        dateTime: DateTime.now(),
+        date: DateTime.now(), // 👈 corregido
+        location: "Bogotá",   // 👈 agregado
         latitude: 0.0,
         longitude: 0.0,
       ),
@@ -20,7 +22,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          eventProvider.overrideWith((ref) async => events),
+          eventsProvider.overrideWith((ref) async => events), // 👈 corregido
         ],
         child: const MaterialApp(
           home: EventPage(),

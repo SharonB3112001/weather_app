@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "WeatherApp DEV",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/app/main_dev.dart",
+      "args": ["--flavor", "dev"],
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "WeatherApp PROD",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/app/main_prod.dart",
+      "args": ["--flavor", "prod"],
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "release"
+    }
+  ]
+}
