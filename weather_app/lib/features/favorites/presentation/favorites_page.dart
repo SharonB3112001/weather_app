@@ -7,24 +7,26 @@ class FavoritesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favorites = ref.watch(favoriteProvider);
+    final favorites = ref.watch(favoritesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Favoritos")),
-      body: ListView.builder(
-        itemCount: favorites.length,
-        itemBuilder: (_, i) {
-          final fav = favorites[i];
-          return ListTile(
-            title: Text(fav.type),
-            subtitle: Text(fav.description),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () => ref.read(favoriteProvider.notifier).remove(fav.id),
-            ),
-          );
-        },
+      appBar: AppBar(
+        title: const Text("Favoritos"),
       ),
+      body: favorites.isEmpty
+          ? const Center(
+              child: Text("No tienes eventos favoritos"),
+            )
+          : ListView.builder(
+              itemCount: favorites.length,
+              itemBuilder: (_, i) {
+                final fav = favorites[i];
+                return ListTile(
+                  title: Text(fav.type),
+                  subtitle: Text(fav.description),
+                );
+              },
+            ),
     );
   }
 }

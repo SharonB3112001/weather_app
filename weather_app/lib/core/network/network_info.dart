@@ -1,3 +1,4 @@
+// lib/core/network/network_info.dart
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 abstract class NetworkInfo {
@@ -6,7 +7,6 @@ abstract class NetworkInfo {
 
 class NetworkInfoImpl implements NetworkInfo {
   final Connectivity connectivity;
-
   NetworkInfoImpl(this.connectivity);
 
   @override

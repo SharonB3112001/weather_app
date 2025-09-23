@@ -7,12 +7,19 @@ class EventRemoteDataSource {
   EventRemoteDataSource(this.client);
 
   Future<List<EventModel>> fetchEvents(double lat, double lon) async {
-    final endpoint = "/timeline/$lat,$lon?include=events&unitGroup=metric&lang=es";
+    final endpoint =
+        "/timeline/$lat,$lon?include=events&unitGroup=metric&lang=es";
     final data = await client.get(endpoint);
 
-    final events = (data['events'] as List<dynamic>? ?? [])
-        .map((e) => EventModel.fromJson(e))
-        .toList();
+    final List<EventModel> events = [];
+
+    final days = data['days'] as List<dynamic>? ?? [];
+    for (final day in days) {
+      final dayEvents = day['events'] as List<dynamic>? ?? [];
+      for (final e in dayEvents) {
+        events.add(EventModel.fromJson(e));
+      }
+    }
 
     return events;
   }

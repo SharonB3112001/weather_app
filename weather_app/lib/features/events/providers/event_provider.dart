@@ -8,9 +8,12 @@ import 'package:http/http.dart' as http;
 import 'package:realm/realm.dart';
 import '../data/models/realm_models.dart';
 import '../../../core/network/api_client.dart';
+import '../providers/location_provider.dart';
+import '../../../core/network/providers/network_info_providers.dart';
 
 final apiClientProvider = Provider((ref) => ApiClient(client: http.Client()));
-final realmProvider = Provider((ref) => Realm(Configuration.local([EventRealm.schema])));
+final realmProvider =
+    Provider((ref) => Realm(Configuration.local([EventRealm.schema])));
 
 final eventRemoteDSProvider =
     Provider((ref) => EventRemoteDataSource(ref.read(apiClientProvider)));
@@ -22,6 +25,7 @@ final eventRepositoryProvider = Provider((ref) {
   return EventRepositoryImpl(
     remote: ref.read(eventRemoteDSProvider),
     local: ref.read(eventLocalDSProvider),
+    networkInfo: ref.read(networkInfoProvider),
   );
 });
 
@@ -30,7 +34,12 @@ final getEventsUseCaseProvider = Provider(
 );
 
 final eventsProvider = FutureProvider<List<EventModel>>((ref) async {
-  const lat = 10.9685; 
-  const lon = -74.7813;
-  return ref.read(getEventsUseCaseProvider).call(lat, lon);
+  final location = ref.watch(locationProvider);
+
+  if (location == null) return [];
+
+  return ref.read(getEventsUseCaseProvider).call(
+        location.latitude,
+        location.longitude,
+      );
 });

@@ -5,11 +5,17 @@ import '../features/forecast/presentation/pages/forecast_page.dart';
 import '../features/favorites/presentation/favorites_page.dart';
 import '../features/map/presentation/map_page.dart';
 import '../presentation/pages/home_page.dart';
+import '../presentation/pages/splash_screen.dart';
+import '../features/chat/presentation/pages/chat_page.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/splash',
     routes: [
+      GoRoute(
+        path: '/splash',
+        builder: (_, __) => const SplashScreen(),
+      ),
       GoRoute(
         path: '/',
         builder: (_, __) => const HomePage(),
@@ -29,6 +35,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/map',
         builder: (_, __) => const MapPage(),
+      ),
+      GoRoute(
+        path: '/chat',
+        builder: (_, __) => const ChatPage(),
       ),
     ],
   );

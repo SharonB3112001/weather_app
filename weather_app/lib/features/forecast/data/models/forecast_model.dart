@@ -1,19 +1,37 @@
-class ForecastModel {
-  final DateTime date;
-  final double temperature;
+class ForecastDayModel {
+  final String date;
+  final double tempMax;
+  final double tempMin;
+  final double temp;
+  final double humidity;
+  final double precip;
+  final String conditions;
   final String description;
+  final String icon;
 
-  ForecastModel({
+  ForecastDayModel({
     required this.date,
-    required this.temperature,
+    required this.tempMax,
+    required this.tempMin,
+    required this.temp,
+    required this.humidity,
+    required this.precip,
+    required this.conditions,
     required this.description,
+    required this.icon,
   });
 
-  factory ForecastModel.fromJson(Map<String, dynamic> json) {
-    return ForecastModel(
-      date: DateTime.tryParse(json['datetime']) ?? DateTime.now(),
-      temperature: (json['temp'] ?? 0).toDouble(),
-      description: json['conditions'] ?? '',
+  factory ForecastDayModel.fromJson(Map<String, dynamic> json) {
+    return ForecastDayModel(
+      date: json['datetime'] ?? '',
+      tempMax: (json['tempmax'] ?? 0).toDouble(),
+      tempMin: (json['tempmin'] ?? 0).toDouble(),
+      temp: (json['temp'] ?? 0).toDouble(),
+      humidity: (json['humidity'] ?? 0).toDouble(),
+      precip: (json['precip'] ?? 0).toDouble(),
+      conditions: json['conditions'] ?? '',
+      description: json['description'] ?? '',
+      icon: json['icon'] ?? '',
     );
   }
 }

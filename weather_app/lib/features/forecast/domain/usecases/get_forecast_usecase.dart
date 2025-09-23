@@ -1,12 +1,12 @@
-import '../../../forecast/data/models/forecast_model.dart';
-import '../../../forecast/data/datasources/forecast_remote_ds.dart';
+import '../../data/models/forecast_model.dart';
+import '../../data/repositories/forecast_repository.dart';
 
 class GetForecastUseCase {
-  final ForecastRemoteDataSource remote;
+  final ForecastRepository repository;
 
-  GetForecastUseCase(this.remote);
+  GetForecastUseCase(this.repository);
 
-  Future<List<ForecastModel>> call(double lat, double lon) {
-    return remote.fetchForecast(lat, lon);
+  Future<List<ForecastDayModel>> call(double lat, double lon) {
+    return repository.getForecast(lat, lon);
   }
 }

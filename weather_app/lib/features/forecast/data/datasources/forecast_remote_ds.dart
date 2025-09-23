@@ -6,15 +6,33 @@ class ForecastRemoteDataSource {
 
   ForecastRemoteDataSource(this.client);
 
-  Future<List<ForecastModel>> fetchForecast(double lat, double lon) async {
-    final endpoint = "/timeline/$lat,$lon?unitGroup=metric&lang=es&include=days&elements=datetime,temp,conditions";
+  Future<List<ForecastDayModel>> fetchLast5Days(double lat, double lon) async {
+    final endpoint =
+        "/timeline/$lat,$lon?unitGroup=metric&lang=es&include=days&pastDays=5";
+
     final data = await client.get(endpoint);
 
     final days = (data['days'] as List<dynamic>? ?? [])
-        .take(5)
-        .map((d) => ForecastModel.fromJson(d))
+        .map((d) => ForecastDayModel.fromJson(d))
         .toList();
 
-    return days;
+    final today = DateTime.now();
+
+    final onlyPast = days.where((d) {
+      final parsedDate = DateTime.tryParse(d.date);
+      if (parsedDate == null) return false;
+      return parsedDate.isBefore(today) || _isSameDay(parsedDate, today);
+    }).toList();
+
+    onlyPast.sort((a, b) => a.date.compareTo(b.date));
+
+    if (onlyPast.length > 5) {
+      return onlyPast.sublist(onlyPast.length - 5);
+    }
+    return onlyPast;
+  }
+
+  bool _isSameDay(DateTime a, DateTime b) {
+    return a.year == b.year && a.month == b.month && a.day == b.day;
   }
 }
